@@ -1,0 +1,44 @@
+name:                jsonrpc-conduit
+version:             0.1.0
+synopsis:            A Conduit serving JSON-RPC requests.
+license:             GPL-3
+license-file:        LICENSE
+author:              Gabriele Sales
+maintainer:          gbrsales@gmail.com
+category:            Network
+build-type:          Simple
+cabal-version:       >=1.8
+
+flag demo
+  description: Build the demo executable.
+  default:     False
+
+library
+  exposed-modules:     Network.JsonRpc.Methods,
+                       Network.JsonRpc.Server
+  build-depends:       base >=4 && <5,
+                       aeson ==0.6.*,
+                       attoparsec ==0.10.*,
+                       bytestring ==0.10.*,
+                       conduit ==0.5.*,
+                       mtl ==2.1.*,
+                       text ==0.11.*,
+                       transformers ==0.3.*,
+                       unordered-containers ==0.2.*
+
+executable jsonrpc-demo
+  if !flag(demo)
+    buildable: False
+
+  main-is:             Network/JsonRpc/Demo.hs
+  other-modules:       Network.JsonRpc.Methods,
+                       Network.JsonRpc.Server
+  build-depends:       base >=4 && <5,
+                       aeson ==0.6.*,
+                       attoparsec ==0.10.*,
+                       bytestring ==0.10.*,
+                       conduit ==0.5.*,
+                       mtl ==2.1.*,
+                       text ==0.11.*,
+                       transformers ==0.3.*,
+                       unordered-containers ==0.2.*
