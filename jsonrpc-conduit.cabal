@@ -1,5 +1,5 @@
 name:                jsonrpc-conduit
-version:             0.1.0
+version:             0.1.1
 synopsis:            A Conduit serving JSON-RPC requests.
 license:             GPL-3
 license-file:        LICENSE
@@ -26,7 +26,7 @@ library
                        transformers ==0.3.*,
                        unordered-containers ==0.2.*
 
-executable jsonrpc-demo
+executable jsonrpc-conduit-demo
   if !flag(demo)
     buildable: False
 
