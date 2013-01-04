@@ -9,8 +9,10 @@
 {-# LANGUAGE RankNTypes #-}
 
 module Network.JsonRpc.Methods
-  ( MethodError(..)
-  , Method(..)
+  ( Method(..)
+  , MethodError(..)
+
+  , NamedMethod
   , method
 
   , Methods
@@ -31,17 +33,19 @@ data Method m where
   Method :: forall i m o. (FromJSON i, ToJSON o)
          => (i -> m (Either MethodError o)) -> Method m
 
+newtype NamedMethod m = NamedMethod { unWrap :: (Text, Method m) }
+
 method :: (FromJSON i, ToJSON o)
        => Text
        -> (i -> m (Either MethodError o))
-       -> (Text, Method m)
-method name f = (name, Method f)
-
+       -> NamedMethod m
+method name f = NamedMethod (name, Method f)
 
 newtype Methods m = Methods (M.HashMap Text (Method m))
 
-fromList :: [(Text, Method m)] -> Methods m
-fromList = Methods . M.fromList
+-- | Builds a collection from a list of 'NamedMethod's.
+fromList :: [NamedMethod m] -> Methods m
+fromList = Methods . M.fromList . map unWrap
 
 lookup :: Methods m -> Text -> Maybe (Method m)
 lookup (Methods m) name = M.lookup name m
