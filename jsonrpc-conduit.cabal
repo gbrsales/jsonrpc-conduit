@@ -1,6 +1,18 @@
 name:                jsonrpc-conduit
-version:             0.1.1
-synopsis:            A Conduit serving JSON-RPC requests.
+version:             0.2
+synopsis:            JSON-RPC 2.0 server over a Conduit.
+description:
+  @jsonrpc-conduit@ implements the basic building block of a JSON-RPC 2.0 server.
+  .
+  It provides a 'Data.Conduit.Conduit' that consumes RPC requests and invokes
+  user-provided functions to handle them. Conversion of values to and from JSON
+  is almost completely automatic thanks to the "Data.Aeson" library.
+  .
+  The JSON-RCP 'Data.Conduit.Conduit' is generic with respect to the channel used
+  to exchange data with the client. It can use a network connection or, for example,
+  the standard input / ouput  of a process. The latter is demonstrated by the
+  @jsonrpc-conduit-demo@ executable, which can be compiled using the @demo@ flag.
+
 license:             GPL-3
 license-file:        LICENSE
 author:              Gabriele Sales
@@ -14,8 +26,8 @@ flag demo
   default:     False
 
 library
-  exposed-modules:     Network.JsonRpc.Methods,
-                       Network.JsonRpc.Server
+  exposed-modules:     Network.JsonRpc.Conduit,
+                       Network.JsonRpc.Methods
   build-depends:       base >=4 && <5,
                        aeson ==0.6.*,
                        attoparsec ==0.10.*,
@@ -31,8 +43,8 @@ executable jsonrpc-conduit-demo
     buildable: False
 
   main-is:             Network/JsonRpc/Demo.hs
-  other-modules:       Network.JsonRpc.Methods,
-                       Network.JsonRpc.Server
+  other-modules:       Network.JsonRpc.Conduit,
+                       Network.JsonRpc.Methods
   build-depends:       base >=4 && <5,
                        aeson ==0.6.*,
                        attoparsec ==0.10.*,

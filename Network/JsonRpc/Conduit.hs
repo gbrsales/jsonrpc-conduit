@@ -1,14 +1,13 @@
 -- |
--- Module      : Network.JsonRpc.Server
--- Copyright   : (c) 2012 Gabriele Sales <gbrsales@gmail.com>
--- Maintainer  : Gabriele Sales
+-- Module      : Network.JsonRpc.Conduit
+-- Copyright   : (c) 2012-2013 Gabriele Sales <gbrsales@gmail.com>
 --
--- JSON-RPC 2.0 server.
+-- JSON-RPC 2.0 server 'Conduit'.
 
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Network.JsonRpc.Server
+module Network.JsonRpc.Conduit
   ( serve )
 where
 
@@ -68,7 +67,10 @@ instance ToJSON (Response Value) where
                   , "error"   .= err
                   , "id"      .= id ]
 
-
+{- |
+A 'Conduit' that consumes a stream of JSON-RPC requests, tries to process them
+with the provided 'Methods' and writes back the results.
+-}
 serve :: (Applicative m, Monad m) => Methods m -> Conduit ByteString m ByteString
 serve methods = parseRequests =$=
                 C.concatMapM (\r -> encodeResponse <$> handleRequest methods r)
