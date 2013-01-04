@@ -70,6 +70,12 @@ instance ToJSON (Response Value) where
 {- |
 A 'Conduit' that consumes a stream of JSON-RPC requests, tries to process them
 with the provided 'Methods' and writes back the results.
+
+Current limitations:
+
+  * does not support batch requests
+
+  * it is not possible to set the @data@ attribute of error objects
 -}
 serve :: (Applicative m, Monad m) => Methods m -> Conduit ByteString m ByteString
 serve methods = parseRequests =$=
