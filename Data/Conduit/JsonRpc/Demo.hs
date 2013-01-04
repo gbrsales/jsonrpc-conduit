@@ -1,6 +1,5 @@
 -- |
--- Copyright   : (c) 2012 Gabriele Sales <gbrsales@gmail.com>
--- Maintainer  : Gabriele Sales
+-- Copyright   : (c) 2012-2013 Gabriele Sales <gbrsales@gmail.com>
 --
 -- An example JSON-RPC server implementing the "echo" and "sum" methods.
 
@@ -11,11 +10,11 @@ module Main
 where
 
 import           Data.Aeson
-import           Data.ByteString         (ByteString)
+import           Data.ByteString              (ByteString)
 import           Data.Conduit
 import           Data.Conduit.Binary
-import           Network.JsonRpc.Methods
-import           Network.JsonRpc.Server
+import           Data.Conduit.JsonRpc.Methods
+import           Data.Conduit.JsonRpc.Server
 import           System.IO
 
 

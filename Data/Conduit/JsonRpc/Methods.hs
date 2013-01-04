@@ -1,5 +1,5 @@
 -- |
--- Module      : Network.JsonRpc.Methods
+-- Module      : Data.Conduit.JsonRpc.Methods
 -- Copyright   : (c) 2012-2013 Gabriele Sales <gbrsales@gmail.com>
 --
 -- JSON-RPC methods.
@@ -7,7 +7,7 @@
 {-# LANGUAGE GADTs      #-}
 {-# LANGUAGE RankNTypes #-}
 
-module Network.JsonRpc.Methods
+module Data.Conduit.JsonRpc.Methods
   ( Method(..)
   , MethodError(..)
 

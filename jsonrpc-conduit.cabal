@@ -8,7 +8,7 @@ description:
   user-provided functions to handle them. Conversion of values to and from JSON
   is almost completely automatic thanks to the "Data.Aeson" library.
   .
-  The JSON-RCP 'Data.Conduit.Conduit' is generic with respect to the channel used
+  The JSON-RPC 'Data.Conduit.Conduit' is generic with respect to the channel used
   to exchange data with the client. It can use a network connection or, for example,
   the standard input / ouput  of a process. The latter is demonstrated by the
   @jsonrpc-conduit-demo@ executable, which can be compiled using the @demo@ flag.
@@ -17,7 +17,7 @@ license:             GPL-3
 license-file:        LICENSE
 author:              Gabriele Sales
 maintainer:          gbrsales@gmail.com
-category:            Network
+category:            Conduit
 build-type:          Simple
 cabal-version:       >=1.8
 
@@ -26,8 +26,8 @@ flag demo
   default:     False
 
 library
-  exposed-modules:     Network.JsonRpc.Conduit,
-                       Network.JsonRpc.Methods
+  exposed-modules:     Data.Conduit.JsonRpc.Methods,
+                       Data.Conduit.JsonRpc.Server
   build-depends:       base >=4 && <5,
                        aeson ==0.6.*,
                        attoparsec ==0.10.*,
@@ -42,9 +42,9 @@ executable jsonrpc-conduit-demo
   if !flag(demo)
     buildable: False
 
-  main-is:             Network/JsonRpc/Demo.hs
-  other-modules:       Network.JsonRpc.Conduit,
-                       Network.JsonRpc.Methods
+  main-is:             Data/Conduit/JsonRpc/Demo.hs
+  other-modules:       Data.Conduit.JsonRpc.Methods,
+                       Data.Conduit.JsonRpc.Server
   build-depends:       base >=4 && <5,
                        aeson ==0.6.*,
                        attoparsec ==0.10.*,

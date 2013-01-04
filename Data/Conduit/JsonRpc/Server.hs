@@ -1,5 +1,5 @@
 -- |
--- Module      : Network.JsonRpc.Conduit
+-- Module      : Data.Conduit.JsonRpc.Server
 -- Copyright   : (c) 2012-2013 Gabriele Sales <gbrsales@gmail.com>
 --
 -- JSON-RPC 2.0 server 'Conduit'.
@@ -7,26 +7,26 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Network.JsonRpc.Conduit
+module Data.Conduit.JsonRpc.Server
   ( serve )
 where
 
 import           Control.Applicative
-import           Control.Monad              (guard, (>=>))
-import           Control.Monad.Trans        (lift)
+import           Control.Monad                (guard, (>=>))
+import           Control.Monad.Trans          (lift)
 import           Control.Monad.Trans.State
-import           Data.Aeson                 hiding (Error)
-import           Data.Aeson.Types           (emptyArray, parseMaybe)
+import           Data.Aeson                   hiding (Error)
+import           Data.Aeson.Types             (emptyArray, parseMaybe)
 import           Data.Attoparsec.ByteString
-import           Data.ByteString            (ByteString)
-import qualified Data.ByteString            as B
-import qualified Data.ByteString.Lazy       as L
+import           Data.ByteString              (ByteString)
+import qualified Data.ByteString              as B
+import qualified Data.ByteString.Lazy         as L
 import           Data.Conduit
-import qualified Data.Conduit.List          as C
+import           Data.Conduit.JsonRpc.Methods hiding (method)
+import qualified Data.Conduit.List            as C
 import           Data.Monoid
-import           Data.Text                  (Text)
-import           Network.JsonRpc.Methods    hiding (method)
-import           Prelude                    hiding (lookup)
+import           Data.Text                    (Text)
+import           Prelude                      hiding (lookup)
 
 
 data Request a = Request { method    :: Text
