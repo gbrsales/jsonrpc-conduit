@@ -1,5 +1,5 @@
 name:                jsonrpc-conduit
-version:             0.2.1
+version:             0.2.2
 synopsis:            JSON-RPC 2.0 server over a Conduit.
 description:
   @jsonrpc-conduit@ implements the basic building block of a JSON-RPC 2.0 server.
@@ -20,6 +20,10 @@ maintainer:          gbrsales@gmail.com
 category:            Conduit
 build-type:          Simple
 cabal-version:       >=1.8
+
+source-repository head
+  type:     git
+  location: https://github.com/gbrsales/jsonrpc-conduit.git
 
 flag demo
   description: Build the demo executable.
