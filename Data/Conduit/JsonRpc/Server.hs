@@ -83,7 +83,7 @@ serve methods = parseRequests =$=
 
 
 parseRequests :: (Monad m)
-              => Pipe ByteString ByteString (Processed (Request Value)) () m ()
+              => ConduitM ByteString (Processed (Request Value)) m ()
 parseRequests = evalStateT loop Nothing
   where
     loop = lift await >>= maybe flush process
