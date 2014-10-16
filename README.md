@@ -8,3 +8,5 @@ The JSON-RPC conduit is generic with respect to the channel used to exchange
 data with the client. It can use a network connection or, for example,
 the standard input / ouput of a process. The latter is demonstrated by the
 "jsonrpc-conduit-demo" executable, which can be compiled using the "demo" flag.
+
+[![Build Status](https://travis-ci.org/gbrsales/jsonrpc-conduit.svg?branch=master)](https://travis-ci.org/gbrsales/jsonrpc-conduit)
