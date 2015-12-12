@@ -42,6 +42,7 @@ library
                        text >=1.1 && <1.3,
                        transformers >=0.3 && <0.5,
                        unordered-containers ==0.2.*
+  ghc-options:         -Wall -fno-warn-name-shadowing
 
 executable jsonrpc-conduit-demo
   if !flag(demo)
@@ -60,3 +61,4 @@ executable jsonrpc-conduit-demo
                        text >=1.1 && <1.3,
                        transformers >=0.3 && <0.5,
                        unordered-containers ==0.2.*
+  ghc-options:         -Wall -fno-warn-name-shadowing
