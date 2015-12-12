@@ -1,6 +1,6 @@
 -- |
 -- Module      : Data.Conduit.JsonRpc.Server
--- Copyright   : (c) 2012-2013 Gabriele Sales <gbrsales@gmail.com>
+-- Copyright   : (c) 2012-2013,2015 Gabriele Sales <gbrsales@gmail.com>
 --
 -- JSON-RPC 2.0 server 'Conduit'.
 
@@ -49,11 +49,11 @@ data Processed a = Correct !a
                  | ParseError
 
 
-data Response a = Result { result   :: a
-                         , resultId :: Value }
-                | Error  { code    :: Int
-                         , message :: Text
-                         , refId   :: Maybe Value }
+data Response a = Result { _result   :: a
+                         , _resultId :: Value }
+                | Error  { _code     :: Int
+                         , _message  :: Text
+                         , _refId    :: Maybe Value }
   deriving (Show)
 
 instance ToJSON (Response Value) where
