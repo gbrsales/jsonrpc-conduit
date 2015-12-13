@@ -12,60 +12,26 @@ module Data.Conduit.JsonRpc.Server
 where
 
 import           Control.Applicative
-import           Control.Monad                (guard, (>=>))
-import           Control.Monad.Trans          (lift)
+import           Control.Monad                       ((>=>))
+import           Control.Monad.Trans                 (lift)
 import           Control.Monad.Trans.State
-import           Data.Aeson                   hiding (Error)
-import           Data.Aeson.Types             (emptyArray, parseMaybe)
+import           Data.Aeson                          hiding (Error)
+import           Data.Aeson.Types                    (parseMaybe)
 import           Data.Attoparsec.ByteString
-import           Data.ByteString              (ByteString)
-import qualified Data.ByteString              as B
-import qualified Data.ByteString.Lazy         as L
+import           Data.ByteString                     (ByteString)
+import qualified Data.ByteString                     as B
+import qualified Data.ByteString.Lazy                as L
 import           Data.Conduit
-import           Data.Conduit.JsonRpc.Methods hiding (method)
-import qualified Data.Conduit.List            as C
-import           Data.Monoid
-import           Data.Text                    (Text)
-import           Prelude                      hiding (lookup)
-
-
-data Request a = Request { method    :: Text
-                         , params    :: a
-                         , requestId :: Value }
-
-instance FromJSON (Request Value) where
-    parseJSON (Object v) = do
-      version <- v .: "jsonrpc"
-      guard (version == ("2.0" :: Text))
-      Request <$> v .:  "method" <*>
-                  (v .:? "params") .!= emptyArray <*>
-                  v .:  "id"
-
-    parseJSON _ = mempty
+import           Data.Conduit.JsonRpc.Internal.Types
+import           Data.Conduit.JsonRpc.Methods        hiding (method)
+import qualified Data.Conduit.List                   as C
+import           Data.Text                           (Text)
+import           Prelude                             hiding (lookup)
 
 
 data Processed a = Correct !a
                  | InvalidRequest
                  | ParseError
-
-
-data Response a = Result { _result   :: a
-                         , _resultId :: Value }
-                | Error  { _code     :: Int
-                         , _message  :: Text
-                         , _refId    :: Maybe Value }
-  deriving (Show)
-
-instance ToJSON (Response Value) where
-    toJSON (Result x id) = object [ "jsonrpc" .= ("2.0" :: Text)
-                                  , "result"  .= x
-                                  , "id"      .= id ]
-    toJSON (Error code msg id) =
-        let err = object [ "code"    .= code
-                         , "message" .= msg ]
-        in object [ "jsonrpc" .= ("2.0" :: Text)
-                  , "error"   .= err
-                  , "id"      .= id ]
 
 {- |
 A 'Conduit' that consumes a stream of JSON-RPC requests, tries to process them
@@ -104,7 +70,7 @@ parseRequests = evalStateT loop Nothing
 
     getPartialParser = get <* put Nothing
 
-    handle (Fail {})     = lift (yield ParseError)
+    handle Fail{}        = lift (yield ParseError)
     handle (Partial k)   = put (Just k) >> loop
     handle (Done rest r) = do
       lift (yieldResponse r)
@@ -123,8 +89,8 @@ handleRequest :: (Applicative m, Monad m)
 handleRequest _       InvalidRequest    = invalidRequest
 handleRequest _       ParseError        = parseError
 handleRequest methods (Correct request) =
-  case lookup methods (method request) of
-    Nothing -> methodNotFound (requestId request)
+  case lookup methods (reqMethod request) of
+    Nothing -> methodNotFound (reqId request)
     Just m  -> runMethod m request
 
 runMethod :: (Applicative m, Monad m)
@@ -132,10 +98,10 @@ runMethod :: (Applicative m, Monad m)
           -> Request Value
           -> m (Response Value)
 runMethod (Method f) request = do
-  let reqId = requestId request
-  case parseMaybe parseJSON (params request) of
-    Nothing -> invalidParams reqId
-    Just ps -> processResult reqId <$> f ps
+  let ri = reqId request
+  case parseMaybe parseJSON (reqParams request) of
+    Nothing -> invalidParams ri
+    Just ps -> processResult ri <$> f ps
 
 processResult :: (ToJSON a) => Value -> Either MethodError a -> Response Value
 processResult reqId (Left (MethodError code msg)) = Error code msg (Just reqId)

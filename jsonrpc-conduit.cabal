@@ -27,7 +27,8 @@ source-repository head
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Data.Conduit.JsonRpc.Methods,
+  exposed-modules:     Data.Conduit.JsonRpc.Internal.Types,
+                       Data.Conduit.JsonRpc.Methods,
                        Data.Conduit.JsonRpc.Server
   build-depends:       base >=4 && <5,
                        aeson >=0.7 && <0.11,
