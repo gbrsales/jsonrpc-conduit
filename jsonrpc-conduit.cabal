@@ -1,5 +1,5 @@
 name:                jsonrpc-conduit
-version:             0.2.7
+version:             0.3.0
 synopsis:            JSON-RPC 2.0 server over a Conduit.
 description:
   @jsonrpc-conduit@ implements the basic building block of a JSON-RPC 2.0 server.
@@ -26,6 +26,7 @@ source-repository head
   location: https://github.com/gbrsales/jsonrpc-conduit.git
 
 library
+  hs-source-dirs:      src
   exposed-modules:     Data.Conduit.JsonRpc.Methods,
                        Data.Conduit.JsonRpc.Server
   build-depends:       base >=4 && <5,
