@@ -82,7 +82,7 @@ parseRequests = evalStateT loop Nothing
                                 Nothing -> InvalidRequest
                                 Just r' -> Correct r'
 
-handleRequest :: (Applicative m, Monad m)
+handleRequest :: Monad m
               => Methods m
               -> Processed (Request Value)
               -> m (Response Value)
