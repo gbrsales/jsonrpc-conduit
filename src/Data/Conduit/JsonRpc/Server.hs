@@ -1,6 +1,6 @@
 -- |
 -- Module      : Data.Conduit.JsonRpc.Server
--- Copyright   : (c) 2012-2013,2015 Gabriele Sales <gbrsales@gmail.com>
+-- Copyright   : (c) 2012-2021 Gabriele Sales <gbrsales@gmail.com>
 --
 -- JSON-RPC 2.0 server 'Conduit'.
 
@@ -43,9 +43,10 @@ Current limitations:
 
   * it is not possible to set the @data@ attribute of error objects
 -}
-serve :: (Applicative m, Monad m) => Methods m -> Conduit ByteString m ByteString
-serve methods = parseRequests =$=
-                C.concatMapM (\r -> encodeResponse <$> handleRequest methods r)
+serve :: (Applicative m, Monad m)
+      => Methods m -> ConduitT ByteString ByteString m ()
+serve methods = parseRequests
+             .| C.concatMapM (fmap encodeResponse . handleRequest methods)
 
 
 parseRequests :: (Monad m)

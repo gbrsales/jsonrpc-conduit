@@ -1,7 +1,7 @@
 {- |
 Module      :  Data.Conduit.JsonRpc.ServerSpec
 Description :  Tests for the server.
-Copyright   :  (c) 2015 Gabriele Sales
+Copyright   :  (c) 2015-2021 Gabriele Sales
 -}
 
 {-# LANGUAGE NamedFieldPuns    #-}
@@ -48,13 +48,13 @@ oneshot :: (ToJSON a, FromJSON b) => Text -> a -> IO (Either Text b)
 oneshot method params = do
   let reqId = toJSON (1::Int)
       req = encode (Request method params reqId)
-  bs <- B.sourceLbs req =$= server $$ B.sinkLbs
+  bs <- runConduit (B.sourceLbs req .| server .| B.sinkLbs)
   return $ case decode bs of
              Nothing             -> Left "invalid response"
              Just Error{errMsg}  -> Left errMsg
              Just Result{result} -> Right result
 
-server :: Conduit ByteString IO ByteString
+server :: ConduitT ByteString ByteString IO ()
 server = serve (fromList [ method "sum" sum'
                          , method "cat" cat ])
 

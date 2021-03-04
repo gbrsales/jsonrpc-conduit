@@ -1,5 +1,5 @@
 name:                jsonrpc-conduit
-version:             0.3.1
+version:             0.3.2
 synopsis:            JSON-RPC 2.0 server over a Conduit.
 description:
   @jsonrpc-conduit@ implements the basic building block of a JSON-RPC 2.0 server.
@@ -32,11 +32,11 @@ library
                        Data.Conduit.JsonRpc.Methods,
                        Data.Conduit.JsonRpc.Server
   build-depends:       base >=4 && <5,
-                       aeson >=0.7 && <0.12,
+                       aeson >=0.7 && <1.6,
                        attoparsec >=0.11 && <0.14,
-                       bytestring >=0.10 && <0.11,
-                       conduit >=1.1 && <1.3,
-                       conduit-extra >=1.1 && <1.3,
+                       bytestring >=0.10 && <0.12,
+                       conduit >=1.2.8 && <1.4,
+                       conduit-extra >=1.1 && <1.4,
                        mtl >=2.1 && <2.3,
                        text >=1.1 && <1.3,
                        transformers >=0.3 && <0.6,
@@ -49,11 +49,11 @@ test-suite spec
   main-is:             Spec.hs
   other-modules:       Data.Conduit.JsonRpc.ServerSpec
   build-depends:       base >=4 && <5,
-                       aeson >=0.7 && <0.12,
-                       bytestring >=0.10 && <0.11,
-                       conduit >=1.1 && <1.3,
-                       conduit-extra >=1.1 && <1.3,
-                       hspec >=2.1 && <2.3,
+                       aeson >=0.7 && <1.6,
+                       bytestring >=0.10 && <0.12,
+                       conduit >=1.2.8 && <1.4,
+                       conduit-extra >=1.1 && <1.4,
+                       hspec >=2.1 && <2.8,
                        jsonrpc-conduit,
                        text >=1.1 && <1.3
   ghc-options:         -Wall -fno-warn-name-shadowing
