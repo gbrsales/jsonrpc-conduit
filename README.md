@@ -6,7 +6,6 @@ completely automatic thanks to the aeson library.
 
 The JSON-RPC conduit is generic with respect to the channel used to exchange
 data with the client. It can use a network connection or, for example,
-the standard input / ouput of a process. The latter is demonstrated by the
-"jsonrpc-conduit-demo" executable, which can be compiled using the "demo" flag.
+the standard input / ouput of a process.
 
 ![CI Status](https://github.com/gbrsales/jsonrpc-conduit/actions/workflows/ci.yaml/badge.svg)
