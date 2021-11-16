@@ -5,8 +5,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        ghc: ['8.8', '8.10', '9.0', 'latest']
+        ghc: ['8.8', '8.10', '9.0']
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        exclude:
+          - ghc: '9.0'
+            os: windows-latest
     name: Build Package
     steps:
       - uses: actions/checkout@v2
