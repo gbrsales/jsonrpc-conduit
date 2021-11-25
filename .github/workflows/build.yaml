@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+  schedule:
+    - cron: '30 2 * * 0'
 name: build
 jobs:
   ci:
