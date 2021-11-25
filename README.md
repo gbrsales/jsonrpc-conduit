@@ -8,4 +8,4 @@ The JSON-RPC conduit is generic with respect to the channel used to exchange
 data with the client. It can use a network connection or, for example,
 the standard input / ouput of a process.
 
-![CI Status](https://github.com/gbrsales/jsonrpc-conduit/actions/workflows/ci.yaml/badge.svg)
+![CI Status](https://github.com/gbrsales/jsonrpc-conduit/actions/workflows/build.yaml/badge.svg)
