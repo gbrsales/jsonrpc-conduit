@@ -1,5 +1,5 @@
 name:                jsonrpc-conduit
-version:             0.3.8
+version:             0.3.9
 synopsis:            JSON-RPC 2.0 server over a Conduit.
 description:
   @jsonrpc-conduit@ implements the basic building block of a JSON-RPC 2.0 server.
@@ -37,7 +37,7 @@ library
                        bytestring >=0.10 && <0.12,
                        conduit >=1.2.8 && <1.4,
                        conduit-extra >=1.1 && <1.4,
-                       mtl >=2.1 && <2.3,
+                       mtl >=2.1 && <2.4,
                        text >=1.1 && <2.1,
                        transformers >=0.3 && <0.7,
                        unordered-containers ==0.2.*
