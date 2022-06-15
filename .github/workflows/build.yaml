@@ -24,4 +24,4 @@ jobs:
       - name: Build library
         run: cabal build
       - name: Run tests
-        run: cabal new-test --test-show-details=direct
+        run: cabal new-test --enable-tests --test-show-details=direct
