@@ -1,6 +1,6 @@
 -- |
 -- Module      : Data.Conduit.JsonRpc.Server
--- Copyright   : (c) 2012-2021 Gabriele Sales <gbrsales@gmail.com>
+-- Copyright   : (c) 2012-2023 Gabriele Sales <gbrsales@gmail.com>
 --
 -- JSON-RPC 2.0 server 'Conduit'.
 
@@ -16,6 +16,7 @@ import           Control.Monad                       ((>=>))
 import           Control.Monad.Trans                 (lift)
 import           Control.Monad.Trans.State
 import           Data.Aeson                          hiding (Error)
+import           Data.Aeson.Parser                   (json')
 import           Data.Aeson.Types                    (parseMaybe)
 import           Data.Attoparsec.ByteString
 import           Data.ByteString                     (ByteString)
